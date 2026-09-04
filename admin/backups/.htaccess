@@ -1,0 +1,7 @@
+Options -Indexes
+
+# [SEC] Protect backup SQL files from direct download
+<FilesMatch ".*">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

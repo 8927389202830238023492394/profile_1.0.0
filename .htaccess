@@ -1,0 +1,58 @@
+Options -Indexes -MultiViews
+
+# Block direct access to sensitive directories
+<FilesMatch "\.(sql|log|env|bak|sh|bat)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Block access to includes and config via direct URL
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^config/ - [F,L]
+    RewriteRule ^includes/ - [F,L]
+    RewriteRule ^sitemap\.xml$ sitemap.php [NC,L]
+
+    # Route SEO friendly URLs to index.php
+    RewriteRule ^services?$ index.php [NC,L]
+    RewriteRule ^websites?$ index.php [NC,L]
+    RewriteRule ^about$ index.php [NC,L]
+    RewriteRule ^contact$ index.php [NC,L]
+    RewriteRule ^service/ index.php [NC,L]
+    RewriteRule ^website/ index.php [NC,L]
+
+    # Remove .php extension
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^([^\.]+)$ $1.php [NC,L]
+</IfModule>
+
+# Security Headers — [SEC-H3, H4, M5]
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'self';"
+</IfModule>
+
+# Enable Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json text/xml
+</IfModule>
+
+# Browser Caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType application/json "access plus 0 seconds"
+</IfModule>
+
+# Charset
+AddDefaultCharset UTF-8

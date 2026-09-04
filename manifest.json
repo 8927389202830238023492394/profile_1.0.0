@@ -1,0 +1,40 @@
+{
+  "name": "Cyber Dashboard Profile",
+  "short_name": "CyberProfile",
+  "description": "Personal Cyber Dashboard Profile",
+  "start_url": "/profile/",
+  "scope": "/profile/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#6366F1",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "assets/img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "developer"],
+  "screenshots": [
+    {
+      "src": "assets/img/screenshot-wide.webp",
+      "sizes": "1280x720",
+      "type": "image/webp",
+      "form_factor": "wide"
+    },
+    {
+      "src": "assets/img/screenshot-narrow.webp",
+      "sizes": "390x844",
+      "type": "image/webp",
+      "form_factor": "narrow"
+    }
+  ]
+}

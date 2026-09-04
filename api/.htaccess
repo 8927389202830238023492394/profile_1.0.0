@@ -1,0 +1,8 @@
+Options -Indexes
+
+# [SEC] Block all PHP execution in api directory from external requests
+# Note: mod_php executes these internally, so only deny direct MIME execution risk
+<FilesMatch "\.(php5|php7|phtml|phar|shtml)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
